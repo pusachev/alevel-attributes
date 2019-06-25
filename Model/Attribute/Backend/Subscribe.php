@@ -13,7 +13,7 @@ use Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend;
 class Subscribe extends AbstractBackend
 {
     /** {@inheritDoc} */
-    public function validate(DataObject $object)
+    public function validate($object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
 
