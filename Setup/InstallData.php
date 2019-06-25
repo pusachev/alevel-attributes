@@ -6,6 +6,7 @@
 
 namespace ALevel\Attributes\Setup;
 
+use Magento\Catalog\Api\Data\EavAttributeInterface;
 use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
@@ -112,7 +113,7 @@ class InstallData implements InstallDataInterface
         $this->getEavSetup($setup)
              ->addAttribute(
                 Product::ENTITY,
-                'subscribe',
+                'subscribe_product_we2',
                 [
                     'group' => 'General', //Means that we add an attribute to the attribute group “General”, which is present in all attribute sets.
                     'type' => 'int', //varchar means that the values will be stored in the catalog_eav_varchar table.
@@ -130,7 +131,7 @@ class InstallData implements InstallDataInterface
                     'visible' => true, //A flag that defines whether an attribute should be shown on the “More Information” tab on the frontend
                     'is_html_allowed_on_front' => true, //Defines whether an attribute value may contain HTML
                     'visible_on_front' => true, // A flag that defines whether an attribute should be shown on product listing
-                    'apply_to' => [Type::TYPE_VIRTUAL, DownloadableType::TYPE_DOWNLOADABLE]
+                    'apply_to' => implode(',', [Type::TYPE_VIRTUAL, DownloadableType::TYPE_DOWNLOADABLE])
                 ]
             );
     }
@@ -310,10 +311,10 @@ class InstallData implements InstallDataInterface
     }
 
     /**
-     * @param eavAttribute $attribute
+     * @param EavAttributeInterface $attribute
      * @return array
      */
-    private function addExistingOptions(eavAttribute $attribute)
+    private function addExistingOptions(EavAttributeInterface $attribute)
     {
         $options = [];
         $attributeId = $attribute->getId();
