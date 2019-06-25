@@ -6,11 +6,11 @@
 
 namespace ALevel\Attributes\Setup;
 
-use ALevel\Attributes\Model\Attribute\Backend\Subscribe;
 use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 use Magento\Eav\Model\ResourceModel\Entity\Attribute\Option\CollectionFactory as OptionCollectionFactory;
+use Magento\Eav\Model\ResourceModel\Entity\Attribute\Option\Collection as OptionCollection;
 use Magento\Eav\Model\Config as EavConfig;
 use Magento\Eav\Api\AttributeRepositoryInterface;
 use Magento\Framework\Setup\InstallDataInterface;
@@ -51,6 +51,28 @@ class InstallData implements InstallDataInterface
     /** @var AttributeRepositoryInterface */
     private $attributeRepositoryInterface;
 
+    /** @var OptionCollection */
+    private $optionCollection;
+
+    /**
+     * @var array
+     */
+    private $colorMap = [
+        'Black'     => '#000000',
+        'Blue'      => '#1857f7',
+        'Brown'     => '#945454',
+        'Gray'      => '#8f8f8f',
+        'Green'     => '#53a828',
+        'Lavender'  => '#ce64d4',
+        'Multi'     => '#ffffff',
+        'Orange'    => '#eb6703',
+        'Purple'    => '#ef3dff',
+        'Red'       => '#ff0000',
+        'White'     => '#ffffff',
+        'Yellow'    => '#ffd500',
+    ];
+
+
     /**
      * InstallData constructor.
      *
@@ -76,6 +98,7 @@ class InstallData implements InstallDataInterface
         $this->createSimpleTextAttribute($setup);
         $this->createClothingMaterialAttribute($setup);
         $this->createdSwatchAttribute($setup);
+        $this->createSampleAttributeForVirtualProducts($setup);
 
 
         $setup->endSetup();
